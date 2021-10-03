@@ -34,7 +34,7 @@ async def addchannel(client, message):
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>Add me as admin of yor group first</b>",
+            "<b>Додайте мене до адміністраторів цієї групи</b>",
         )
         return
 
@@ -45,20 +45,20 @@ async def addchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id, "I joined here as you requested")
+        await USER.send_message(message.chat.id, "Я приєднався сюди, як ви і просили")
     except UserAlreadyParticipant:
         await message.reply_text(
-            "<b>helper already in your chat</b>",
+            "<b>Ассистент бот приєднався до вашого чату</b>",
         )
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n User {user.first_name} couldn't join your group due to heavy join requests for userbot! Make sure user is not banned in group."
-            "\n\nOr manually add @DaisyXhelper to your Group and try again</b>",
+            f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} не вдалося приєднатися до вашої групи через багато спроб!Переконайтеся, що бот не заблокований у групі."         
+            "\n\вручну додайте ассистента до своєї групи та повторіть спробу</b>",
         )
         return
     await message.reply_text(
-        "<b>helper userbot joined your chat</b>",
+        "<b>Ассистент бот приєднався до вашого чату</b>",
     )
 
 
@@ -69,8 +69,8 @@ async def rem(USER, message):
         await USER.leave_chat(message.chat.id)
     except:
         await message.reply_text(
-            f"<b>User couldn't leave your group! May be floodwaits."
-            "\n\nOr manually kick me from to your Group</b>",
+            f"<b>Користувач не може вийти з вашої групи!"
+            "\n\nOr вручну видаліть мене з вашої групи</b>",
         )
         return
 
@@ -80,22 +80,22 @@ async def bye(client, message):
     if message.from_user.id in SUDO_USERS:
         left = 0
         failed = 0
-        lol = await message.reply("Assistant Leaving all chats")
+        lol = await message.reply("Ассистент залишив усі чати")
         async for dialog in USER.iter_dialogs():
             try:
                 await USER.leave_chat(dialog.chat.id)
                 left = left + 1
                 await lol.edit(
-                    f"Assistant leaving... Left: {left} chats. Failed: {failed} chats."
+                    f"Ассистент виходить...: {left} chats. Помилка: {failed} chats."
                 )
             except:
                 failed = failed + 1
                 await lol.edit(
-                    f"Assistant leaving... Left: {left} chats. Failed: {failed} chats."
+                    f"Ассистент виходить...: {left} chats. Помилка: {failed} chats."
                 )
             await asyncio.sleep(0.7)
         await client.send_message(
-            message.chat.id, f"Left {left} chats. Failed {failed} chats."
+            message.chat.id, f"Left {left} chats. Помилка {failed} chats."
         )
 
 
@@ -110,13 +110,13 @@ async def addcchannel(client, message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("Is chat even linked")
+        await message.reply("Чат повязаний")
         return
     try:
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>Add me as admin of yor channel first</b>",
+            "<b>Додайте мене до адміністраторів цієї групи</b>",
         )
         return
 
@@ -127,19 +127,19 @@ async def addcchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id, "I joined here as you requested")
+        await USER.send_message(message.chat.id, "Я приєднався сюди, як ви і просили")
     except UserAlreadyParticipant:
         await message.reply_text(
-            "<b>helper already in your channel</b>",
+            "<b>Ассистент бот приєднався до вашого чату</b>",
         )
         return
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n User {user.first_name} couldn't join your channel due to heavy join requests for userbot! Make sure user is not banned in channel."
-            "\n\nOr manually add @DaisyXhelper to your Group and try again</b>",
+             f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} не вдалося приєднатися до вашої групи через багато спроб!Переконайтеся, що бот не заблокований у групі."
+            "\n\вручну додайте ассистента до своєї групи та повторіть спробу</b>",
         )
         return
     await message.reply_text(
-        "<b>helper userbot joined your channel</b>",
+        "<b>Ассистент бот приєднався до вашого чату</b>",
     )
