@@ -1,8 +1,8 @@
 <h1 align="centre">MIVINKA BOT V5.0 🎵</h1>
 
 ### A bot that can play music on Telegram Group and Channel Voice Chats
-#### POWERED BY [MIViNKA](https://github.com/Rafik99)
-### Available on telegram as [@mivinka0](https://t.me/daisyxbot)
+#### POWERED BY [MIViNKA](https://github.com/mivinka1/)
+### Available on telegram as [@mivinka0](https://t.me/mivinka0)
 
 <p align="center">
   <img src="https://telegra.ph/file/a1c237679c68716f76b63.gif">
@@ -26,7 +26,7 @@
 
 ### 💜 Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Rafik99/mivinkamusic)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/mivinka1/mivinkamusic)
 
 Get pyrogram (p)  `SESSION` from here:
 
@@ -35,7 +35,7 @@ Get pyrogram (p)  `SESSION` from here:
 ### ⚔ Self-hosting (For Devs) 
 ```sh
 # Install Git First (apt-get install git)
-$ git clone https://github.com/TeamDaisyX/DaisyXmusic
+$ git clone https://github.com/mivinka1/mivinkamusic
 $ cd DaisyXMusic
 # Upgrade sources
 # Install All Requirements 
@@ -91,7 +91,7 @@ For linked group admins only:
 If you donlt like to play in linked channel:
  1. Get your channel ID.
  2. Rename your group to: Channel Music: your_channel_id
- 3. Add @DaisyXBot as Channel admin with full perms
+ 3. Add @@demonplayer_bot as Channel admin with full perms
  4. add helper to channel
  5. Simply send commands in your group.
 
@@ -107,8 +107,6 @@ If you donlt like to play in linked channel:
 
 
 
-
-This project is inspired on the hard work done by [Rojserbest](http://github.com/rojserbest). Without his hardwork daisyxmusic won't exist. 
 Also Mivinka Bot is inspired by many opensource bots and userbots
 
 
@@ -116,8 +114,8 @@ Also Mivinka Bot is inspired by many opensource bots and userbots
 
 ## Copyright & License 👮
 
- - Copyright (C) 2020 - 2021 by [MIVINKA](github.com/Rafik99) ❤️️
- - Licensed under the terms of the [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007](https://github.com/Rafik99/mivinkamusic/blob/master/LICENSE)
+ - Copyright (C) 2020 - 2021 by [MIVINKA](github.com/mivinka1/) ❤️️
+ - Licensed under the terms of the [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007](https://github.com/mivinka1/mivinkamusic/blob/master/LICENSE)
     
 Mivinka Bot is Free Software: You can use, study share and improve it at your will. Specifically you can redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.    
-## Made with ♥️ by [MIVINKA](https://github.com/Rafik99/)
+## Made with ♥️ by [MIVINKA](https://github.com/mivinka1//)
