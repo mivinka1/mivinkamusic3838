@@ -43,62 +43,64 @@ $ pip3 install -U -r requirements.txt
 # Fork This Repo and fill config.py vars with your own values.Then Start The Bot
 $ python3 -m DaisyXMusic
 ```
+Команди
 
-### Commands for Group 🛠
-#### For all in group
+=>> Song Playing 
 
-- `/play <song name>` - play song you requested
-- `/play <reply to audio>` - play replied file
-- `/dplay <song name>` - play song you requested via deezer
-- `/splay <song name>` - play song you requested via jio saavn
-- `/ytplay <song name>`: Directly play song via Youtube Music
-- `/playlist` - Show now playing list
-- `/current` - Show now playing
-- `/song <song name>` - download songs you want quickly
-- `/search <query>` - search videos on youtube with details
-- `/deezer <song name>` - download songs you want quickly via deezer
-- `/saavn <song name>` - download songs you want quickly via saavn
-- `/video <song name>` - download videos you want quickly
+- `/play:` - Відтворення медіа чату
+- `/play [yt url]` : - Відтворення за ссилкою YouTube
+- `/splay:` - Відтворення пісні через jio saavn
+- `/ytplay:` - Відтворювати пісню через Youtube Music
+- `/playlist` - Показати плейлист
+- `/current` - Показати поточний трек
+- `/song [назва пісні]:` Завантажити аудіо пісню з YouTube
+- `/search [назва пісні]:` Пошук пісень на YouTube
+- `/deezer  [назва пісні]:` Завантажити пісню з deezer
+- `/saavn  [назва пісні]:` Завантажити пісню з saavn
+- `/video [назва пісні]:` Завантажити відео пісню з YouTube -->
 
-#### Admins only.
-- `/player` - open music player settings panel
-- `/pause` - pause song play
-- `/resume` - resume song play
-- `/skip` - play next song
-- `/end` - stop music play
-- `/userbotjoin` - invite assistant to your chat
+#### Лише для адміністраторів.
+- `/player` - Відкрити меню налаштувань програвача
+- `/pause` - Призупинити трек
+- `/resume` - Відновлення призупиненого треку
+- `/skip` - Пропустити поточний трек
+- `/end` -  Припинення відтворення медіафайлів
+- `/userbotjoin:` Запросити @@xxdemonxbot бота до вашого чату
 - `/userbotleave` - remove assistant from your chat
-- `/admincache` - Refresh admin list
-- `/musicplayer [on/off]` - Enable/Disable Music Player
+- `/admincache:` Оновлення адмінів у вашому чаті, якщо бот не розпізнає адміністратора
+- `/musicplayer [on/off]:` Увімкнення або вимкнення музичного програвача
 
-### Commands for Channel Music Play 🛠
-For linked group admins only:
-- `/cplay <song name>` - play song you requested
-- `/cplay <reply to link>` - play replied youtube link
-- `/cplay <reply to audio>` - play replied file
-- `/cdplay <song name>` - play song you requested via deezer
-- `/csplay <song name>` - play song you requested via jio saavn
-- `/cplaylist` - Show now playing list
-- `/cccurrent` - Show now playing
-- `/cplayer` - open music player settings panel
-- `/cpause` - pause song play
-- `/cresume` - resume song play
-- `/cskip` - play next song
-- `/cend` - stop music play
-- `/userbotjoinchannel` - invite assistant to your chat
-* channel is also can be used instead of c
+=>> Відтворення музики каналу 
 
-If you donlt like to play in linked channel:
- 1. Get your channel ID.
- 2. Rename your group to: Channel Music: your_channel_id
- 3. Add @demonplayer_bot as Channel admin with full perms
- 4. add helper to channel
- 5. Simply send commands in your group.
+ Лише для адміністраторів зв'язаних груп:
 
+- `/cplay [назва пісні]` - Відтворення
+- `/csplay [назва пісні]` - Відтворення через jio saavn
+- `/cplaylist` - Показати список відтворення
+- `/cccurrent` - Показати що зараз відтворюється
+- `/cplayer` - відкрити панель налаштувань музичного програвача
+- `/cpause` - призупинити відтворення пісні
+- `/cresume` - відновити відтворення пісні
+- `/cskip` - відтворити наступну пісню
+- `/cend` - зупинити відтворення музики
+- `/userbotjoinchannel` - Добавити ассистента у ваш чат
+
+
+Налаштування
+
+1) Видайте боту адмінку
+2) Почніть голосовий чат
+3) Впишіть /play [назва пісні]
+*) Якщо бот приєднався то насолоджуйтеся музикою, Якщо не додати @@xxdemonxbot до вашого чату повторіть ще раз
+
+Для відтворення музики каналу
+1) Видайте боту адмінку
+2) Надішліть /userbotjoinchannel  у зв'язаній групі
+3) Тепер надсилайте команди у зв'язаній групі
 ### Commands for Sudo Users ⚔️
-- `/userbotleaveall` - remove assistant from all chats
-- `/gcast <reply to message>` - globally brodcast replied message to all chats
-- `/pmpermit [on/off]` - enable/disable pmpermit message
+- `/userbotleaveall` - видалити помічника з усіх чатів
+- `/gcast <реплей> ` - глобально трансльоване повідомлення усім чатам
+- `/pmpermit [on/off]` - увімкнути/вимкнути повідомлення у приватні повідомлення
 
 #### Pmpermit
 - `.a` - approove someone to pm you
