@@ -61,7 +61,7 @@ def cb_admin_check(func: Callable) -> Callable:
         if cb.from_user.id in admemes:
             return await func(client, cb)
         else:
-            await cb.answer("You ain't allowed!", show_alert=True)
+            await cb.answer("Вам не дозволено!", show_alert=True)
             return
 
     return decorator
@@ -117,9 +117,9 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 32)
-    draw.text((205, 550), f"Title: {title}", (51, 215, 255), font=font)
-    draw.text((205, 590), f"Duration: {duration}", (255, 255, 255), font=font)
-    draw.text((205, 630), f"Views: {views}", (255, 255, 255), font=font)
+    draw.text((205, 550), f"Назва: {title}", (51, 215, 255), font=font)
+    draw.text((205, 590), f"Тривалість: {duration}", (255, 255, 255), font=font)
+    draw.text((205, 630), f"Переглядів: {views}", (255, 255, 255), font=font)
     draw.text(
         (205, 670),
         f"Added By: {requested_by}",
@@ -138,7 +138,7 @@ async def playlist(client, message):
         return
     queue = que.get(message.chat.id)
     if not queue:
-        await message.reply_text("Player is idle")
+        await message.reply_text("Плеєр не працює ")
     temp = []
     for t in queue:
         temp.append(t)
@@ -292,9 +292,9 @@ async def p_cb(b, cb):
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
-        msg = "<b>Зараз відтворюється</b> in {}".format(cb.message.chat.title)
+        msg = "<b>Зараз відтворюється</b> у {}".format(cb.message.chat.title)
         msg += "\n- " + now_playing
-        msg += "\n- Req by " + by
+        msg += "\n- Відтворив " + by
         temp.pop(0)
         if temp:
             msg += "\n\n"
