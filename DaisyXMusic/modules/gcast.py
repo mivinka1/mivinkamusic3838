@@ -31,9 +31,9 @@ async def broadcast(_, message: Message):
     if message.from_user.id not in SUDO_USERS:
         return
     else:
-        wtf = await message.reply("`Starting a broadcast...`")
+        wtf = await message.reply("`Початок трансляції...`")
         if not message.reply_to_message:
-            await wtf.edit("Please Reply to a Message to broadcast!")
+            await wtf.edit("Будь ласка, реплейніть на медіа яке буде транслюватись!")
             return
         lmao = message.reply_to_message.text
         async for dialog in USER.iter_dialogs():
@@ -41,13 +41,13 @@ async def broadcast(_, message: Message):
                 await USER.send_message(dialog.chat.id, lmao)
                 sent = sent + 1
                 await wtf.edit(
-                    f"`broadcasting...` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats"
+                    f"`broadcasting...` \n\n**Надіслано до:** `{sent}` Чат \n**Не вдалося в:** {failed} Чат"
                 )
                 await asyncio.sleep(3)
             except:
                 failed = failed + 1
-                # await wtf.edit(f"`broadcasting...` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats")
+                # await wtf.edit(f"`broadcasting...` \n\n**Надіслано до:** `{sent}` Чат \n**Не вдалося в:** {failed} Чат")
 
         await message.reply_text(
-            f"`Broadcast Finished ` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats"
+            f"`Broadcast Finished ` \n\n**Надіслано до:** `{sent}` Чат \n**Не вдалося в:** {failed} Чат"
         )
