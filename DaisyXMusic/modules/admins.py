@@ -53,7 +53,7 @@ async def pause(_, message: Message):
         await message.reply_text("❗ Нічого не відтворено!")
     else:
         callsmusic.pause(chat_id)
-        await message.reply_text("▶️ Пауза!")
+        await message.reply_text("▶️ Призупинено!")
 
 
 @Client.on_message(command("resume") & other_filters)
@@ -67,7 +67,7 @@ async def resume(_, message: Message):
         await message.reply_text("❗ Нічого не призупинено!")
     else:
         callsmusic.resume(chat_id)
-        await message.reply_text("⏸ Відновленно!")
+        await message.reply_text("⏸ Відтворено!")
 
 
 @Client.on_message(command("end") & other_filters)
