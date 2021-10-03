@@ -49,12 +49,12 @@ async def playlist(client, message):
         lel = await client.get_chat(message.chat.id)
         lol = lel.linked_chat.id
     except:
-        message.reply("Is this cat even linked?")
+        message.reply("Чат привязаний?")
         return
     global que
     queue = que.get(lol)
     if not queue:
-        await message.reply_text("Player is idle")
+        await message.reply_text("Плеєр не працює")
     temp = []
     for t in queue:
         temp.append(t)
@@ -62,16 +62,16 @@ async def playlist(client, message):
     by = temp[0][1].mention(style="md")
     msg = "<b>Now Playing</b> in {}".format(lel.linked_chat.title)
     msg += "\n- " + now_playing
-    msg += "\n- Req by " + by
+    msg += "\n- Відтворив " + by
     temp.pop(0)
     if temp:
         msg += "\n\n"
-        msg += "<b>Queue</b>"
+        msg += "<b>Черга</b>"
         for song in temp:
             name = song[0]
             usr = song[1].mention(style="md")
             msg += f"\n- {name}"
-            msg += f"\n- Req by {usr}\n"
+            msg += f"\n-  Відтворив {usr}\n"
     await message.reply_text(msg)
 
 
@@ -81,13 +81,13 @@ async def playlist(client, message):
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.active_chats:
         # if chat.id in active_chats:
-        stats = "Settings of **{}**".format(chat.title)
+        stats = "Налаштування**{}**".format(chat.title)
         if len(que) > 0:
             stats += "\n\n"
-            stats += "Volume : {}%\n".format(vol)
-            stats += "Songs in queue : `{}`\n".format(len(que))
-            stats += "Now Playing : **{}**\n".format(queue[0][0])
-            stats += "Requested by : {}".format(queue[0][1].mention)
+            stats += "Звук : {}%\n".format(vol)
+            stats += "Назва пісні : `{}`\n".format(len(que))
+            stats += "Зараз відтворено : **{}**\n".format(queue[0][0])
+            stats += "Відтворив : {}".format(queue[0][1].mention)
     else:
         stats = None
     return stats
@@ -107,9 +107,9 @@ def r_ply(type_):
                 InlineKeyboardButton("⏭", "cskip"),
             ],
             [
-                InlineKeyboardButton("Playlist 📖", "cplaylist"),
+                InlineKeyboardButton("Плейлист 📖", "cplaylist"),
             ],
-            [InlineKeyboardButton("❌ Close", "ccls")],
+            [InlineKeyboardButton("❌ Закрити", "ccls")],
         ]
     )
     return mar
@@ -124,14 +124,14 @@ async def ee(client, message):
         lol = lel.linked_chat.id
         conv = lel.linked_chat
     except:
-        await message.reply("Is chat even linked")
+        await message.reply("Чат привязаний")
         return
     queue = que.get(lol)
     stats = updated_stats(conv, queue)
     if stats:
         await message.reply(stats)
     else:
-        await message.reply("No VC instances running in this chat")
+        await message.reply("Голосовий чат не запущено")
 
 
 @Client.on_message(
@@ -145,7 +145,7 @@ async def settings(client, message):
         lol = lel.linked_chat.id
         conv = lel.linked_chat
     except:
-        await message.reply("Is chat even linked")
+        await message.reply("Чат привязаний")
         return
     queue = que.get(lol)
     stats = updated_stats(conv, queue)
@@ -156,7 +156,7 @@ async def settings(client, message):
         else:
             await message.reply(stats, reply_markup=r_ply("play"))
     else:
-        await message.reply("No VC instances running in this chat")
+        await message.reply("Голосовий чат не запущено")
 
 
 @Client.on_callback_query(filters.regex(pattern=r"^(cplaylist)$"))
@@ -176,24 +176,24 @@ async def p_cb(b, cb):
     if type_ == "playlist":
         queue = que.get(lol)
         if not queue:
-            await cb.message.edit("Player is idle")
+            await cb.message.edit("Плеєр не працює")
         temp = []
         for t in queue:
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
-        msg = "**Now Playing** in {}".format(conv.title)
+        msg = "**Зараз відтворюється** in {}".format(conv.title)
         msg += "\n- " + now_playing
-        msg += "\n- Req by " + by
+        msg += "\n- Відтворив " + by
         temp.pop(0)
         if temp:
             msg += "\n\n"
-            msg += "**Queue**"
+            msg += "**Черга**"
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
                 msg += f"\n- {name}"
-                msg += f"\n- Req by {usr}\n"
+                msg += f"\n- Відтворив {usr}\n"
         await cb.message.edit(msg)
 
 
@@ -226,20 +226,20 @@ async def m_cb(b, cb):
         if (chet_id not in callsmusic.active_chats) or (
             callsmusic.active_chats[chet_id] == "paused"
         ):
-            await cb.answer("Chat is not connected!", show_alert=True)
+            await cb.answer("Чат не підключений!", show_alert=True)
         else:
             callsmusic.pause(chet_id)
-            await cb.answer("Music Paused!")
+            await cb.answer("Музика призупинена!")
             await cb.message.edit(updated_stats(conv, qeue), reply_markup=r_ply("play"))
 
     elif type_ == "cplay":
         if (chet_id not in callsmusic.active_chats) or (
             callsmusic.active_chats[chet_id] == "playing"
         ):
-            await cb.answer("Chat is not connected!", show_alert=True)
+            await cb.answer("Чат не підключений!", show_alert=True)
         else:
             callsmusic.resume(chet_id)
-            await cb.answer("Music Resumed!")
+            await cb.answer("Музику відновленно!")
             await cb.message.edit(
                 updated_stats(conv, qeue), reply_markup=r_ply("pause")
             )
@@ -247,49 +247,49 @@ async def m_cb(b, cb):
     elif type_ == "cplaylist":
         queue = que.get(cb.message.chat.id)
         if not queue:
-            await cb.message.edit("Player is idle")
+            await cb.message.edit("Плеєр не працює")
         temp = []
         for t in queue:
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
-        msg = "**Now Playing** in {}".format(cb.message.chat.title)
+        msg = "**Зараз відтворюється** in {}".format(cb.message.chat.title)
         msg += "\n- " + now_playing
-        msg += "\n- Req by " + by
+        msg += "\n- Відтворив " + by
         temp.pop(0)
         if temp:
             msg += "\n\n"
-            msg += "**Queue**"
+            msg += "**Черга**"
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
                 msg += f"\n- {name}"
-                msg += f"\n- Req by {usr}\n"
+                msg += f"\n- Відтворив {usr}\n"
         await cb.message.edit(msg)
 
     elif type_ == "cresume":
         if (chet_id not in callsmusic.active_chats) or (
             callsmusic.active_chats[chet_id] == "playing"
         ):
-            await cb.answer("Chat is not connected or already playng", show_alert=True)
+            await cb.answer("Чат не підключений або вже відтворюється", show_alert=True)
         else:
             callsmusic.resume(chet_id)
-            await cb.answer("Music Resumed!")
+            await cb.answer("Музику відновленно!")
     elif type_ == "cpuse":
         if (chet_id not in callsmusic.active_chats) or (
             callsmusic.active_chats[chet_id] == "paused"
         ):
-            await cb.answer("Chat is not connected or already paused", show_alert=True)
+            await cb.answer("Чат не підключено або вже призупинено", show_alert=True)
         else:
             callsmusic.pause(chet_id)
-            await cb.answer("Music Paused!")
+            await cb.answer("Музика призупинена!")
     elif type_ == "ccls":
-        await cb.answer("Closed menu")
+        await cb.answer("Закрити меню")
         await cb.message.delete()
 
     elif type_ == "cmenu":
         stats = updated_stats(conv, qeue)
-        await cb.answer("Menu opened")
+        await cb.answer("Відкрити меню")
         marr = InlineKeyboardMarkup(
             [
                 [
@@ -299,9 +299,9 @@ async def m_cb(b, cb):
                     InlineKeyboardButton("⏭", "cskip"),
                 ],
                 [
-                    InlineKeyboardButton("Playlist 📖", "cplaylist"),
+                    InlineKeyboardButton("Плейлист 📖", "cplaylist"),
                 ],
-                [InlineKeyboardButton("❌ Close", "ccls")],
+                [InlineKeyboardButton("❌ Закрити", "ccls")],
             ]
         )
         await cb.message.edit(stats, reply_markup=marr)
@@ -309,19 +309,19 @@ async def m_cb(b, cb):
         if qeue:
             qeue.pop(0)
         if chet_id not in callsmusic.active_chats:
-            await cb.answer("Chat is not connected!", show_alert=True)
+            await cb.answer("Чат не підключений!", show_alert=True)
         else:
             queues.task_done(chet_id)
 
             if queues.is_empty(chet_id):
                 callsmusic.stop(chet_id)
-                await cb.message.edit("- No More Playlist..\n- Leaving VC!")
+                await cb.message.edit("- Немає більше списку відтворення..\n- Leaving VC!")
             else:
                 await callsmusic.set_stream(chet_id, queues.get(chet_id)["file"])
-                await cb.answer.reply_text("✅ <b>Skipped</b>")
+                await cb.answer.reply_text("✅ <b>Пропустити</b>")
                 await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
                 await cb.message.reply_text(
-                    f"- Skipped track\n- Now Playing **{qeue[0][0]}**"
+                    f"- Трек пропущено\n- Зараз відтворюється **{qeue[0][0]}**"
                 )
 
     else:
@@ -332,9 +332,9 @@ async def m_cb(b, cb):
                 pass
 
             callsmusic.stop(chet_id)
-            await cb.message.edit("Successfully Left the Chat!")
+            await cb.message.edit("Вийшов із чату!")
         else:
-            await cb.answer("Chat is not connected!", show_alert=True)
+            await cb.answer("Чат не підключений!", show_alert=True)
 
 
 @Client.on_message(
@@ -343,7 +343,7 @@ async def m_cb(b, cb):
 @authorized_users_only
 async def play(_, message: Message):
     global que
-    lel = await message.reply("🔄 <b>Processing</b>")
+    lel = await message.reply("🔄 <b>Обробка</b>")
 
     try:
         conchat = await _.get_chat(message.chat.id)
@@ -351,12 +351,12 @@ async def play(_, message: Message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("Is chat even linked")
+        await message.reply("Чат привязаний")
         return
     try:
         administrators = await get_administrators(conv)
     except:
-        await message.reply("Am I admin of Channel")
+        await message.reply("Я адміністратор каналу")
     try:
         user = await USER.get_me()
     except:
@@ -369,23 +369,23 @@ async def play(_, message: Message):
     except:
         for administrator in administrators:
             if administrator == message.from_user.id:
-                if message.chat.title.startswith("Channel Music: "):
+                if message.chat.title.startswith("Музика каналу: "):
                     await lel.edit(
-                        "<b>Remember to add helper to your channel</b>",
+                        "<b>Не забудьте додати ассистента до свого каналу</b>",
                     )
 
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        "<b>Add me as admin of yor channel  first</b>",
+                        "<b>Додайте мене до адміністраторів цієї групи</b>",
                     )
                     return
 
                 try:
                     await USER.join_chat(invitelink)
                     await lel.edit(
-                        "<b>helper userbot joined your channel</b>",
+                        "<b>Ассистент бот приєднався до вашого чату</b>",
                     )
 
                 except UserAlreadyParticipant:
@@ -393,21 +393,21 @@ async def play(_, message: Message):
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your channel due to heavy requests for userbot! Make sure user is not banned in group."
-                        "\n\nOr manually add assistant to your Group and try again</b>",
+                        f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} не вдалося приєднатися до вашої групи через багато спроб!Переконайтеся, що бот не заблокований у групі."
+                        "\n\вручну додайте ассистента до своєї групи та повторіть спробу</b>",
                     )
     try:
         await USER.get_chat(chid)
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            f"<i> {user.first_name} Userbot not in this chat, Ask channel admin to send /play command for first time or add {user.first_name} manually</i>"
+            f"<i> {user.first_name} Бот не в цьому чаті. Попросіть адміністратора надіслати /play вперше або додайте {user.first_name} вручну</i>"
         )
         return
     message.from_user.id
     text_links = None
     message.from_user.first_name
-    await lel.edit("🔎 <b>Finding</b>")
+    await lel.edit("🔎 <b>Пошук</b>")
     message.from_user.id
     user_id = message.from_user.id
     message.from_user.first_name
@@ -436,16 +436,16 @@ async def play(_, message: Message):
     if audio:
         if round(audio.duration / 60) > DURATION_LIMIT:
             await lel.edit(
-                f"❌ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed to play!"
+                f"❌ Відео довше {DURATION_LIMIT} хвилин не допускається!"
             )
             return
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
-                    InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
+                    InlineKeyboardButton("📖 Плейлист", callback_data="cplaylist"),
+                    InlineKeyboardButton("Меню ⏯ ", callback_data="cmenu"),
                 ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+                [InlineKeyboardButton(text="❌ Закрити", callback_data="ccls")],
             ]
         )
         file_name = get_file_name(audio)
@@ -453,7 +453,7 @@ async def play(_, message: Message):
         thumb_name = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
-        views = "Locally added"
+        views = "Локально додано"
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)
         file_path = await convert(
@@ -463,7 +463,7 @@ async def play(_, message: Message):
         )
     elif urls:
         query = toxt
-        await lel.edit("🎵 **Processing**")
+        await lel.edit("🎵 **Обробка**")
         ydl_opts = {"format": "bestaudio/best"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -480,7 +480,7 @@ async def play(_, message: Message):
 
         except Exception as e:
             await lel.edit(
-                "Song not found.Try another song or maybe spell it properly."
+                "Пісню не знайдено. Спробуйте іншу пісню або напишіть її належним чином."
             )
             print(str(e))
             return
@@ -491,7 +491,7 @@ async def play(_, message: Message):
                 secmul *= 60
             if (dur / 60) > DURATION_LIMIT:
                 await lel.edit(
-                    f"❌ Videos longer than {DURATION_LIMIT} minutes aren't allowed to play!"
+                    f"❌ Відео довше {DURATION_LIMIT} хвилин не допускається!"
                 )
                 return
         except:
@@ -501,14 +501,14 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
-                    InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
+                    InlineKeyboardButton("📖 Плейлист", callback_data="cplaylist"),
+                    InlineKeyboardButton("Меню ⏯ ", callback_data="cmenu"),
                 ],
                 [
                     InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
-                    InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
+                    InlineKeyboardButton(text="Завантажити 📥", url=f"{dlurl}"),
                 ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+                [InlineKeyboardButton(text="❌ Закрити", callback_data="ccls")],
             ]
         )
         requested_by = message.from_user.first_name
@@ -519,7 +519,7 @@ async def play(_, message: Message):
         for i in message.command[1:]:
             query += " " + str(i)
         print(query)
-        await lel.edit("🎵 **Processing**")
+        await lel.edit("🎵 **Обробка**")
         ydl_opts = {"format": "bestaudio/best"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -536,7 +536,7 @@ async def play(_, message: Message):
 
         except Exception as e:
             await lel.edit(
-                "Song not found.Try another song or maybe spell it properly."
+                "Пісню не знайдено. Спробуйте іншу пісню або напишіть її належним чином."
             )
             print(str(e))
             return
@@ -547,7 +547,7 @@ async def play(_, message: Message):
                 secmul *= 60
             if (dur / 60) > DURATION_LIMIT:
                 await lel.edit(
-                    f"❌ Videos longer than {DURATION_LIMIT} minutes aren't allowed to play!"
+                    f"❌ Відео довше {DURATION_LIMIT} хвилин не допускається!"
                 )
                 return
         except:
@@ -557,14 +557,14 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
-                    InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
+                    InlineKeyboardButton("📖 Плейлист", callback_data="cplaylist"),
+                    InlineKeyboardButton("Меню ⏯ ", callback_data="cmenu"),
                 ],
                 [
                     InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
-                    InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
+                    InlineKeyboardButton(text="Завантажити 📥", url=f"{dlurl}"),
                 ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+                [InlineKeyboardButton(text="❌ Закрити", callback_data="ccls")],
             ]
         )
         requested_by = message.from_user.first_name
@@ -581,7 +581,7 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"#⃣ Your requested song <b>queued</b> at position {position}!",
+            caption=f"#⃣ Ваша пісня <b>queued</b> на позиції {position}!",
             reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -599,7 +599,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="▶️ <b>Playing</b> the song requested by {} via Youtube Music 😎 in Linked Channel".format(
+            caption="▶️ <b>Відтворено</b> ваш трек {} через Youtube Music 😎 in Linked Channel".format(
                 message.from_user.mention()
             ),
         )
@@ -613,19 +613,19 @@ async def play(_, message: Message):
 @authorized_users_only
 async def jiosaavn(client: Client, message_: Message):
     global que
-    lel = await message_.reply("🔄 **Processing**")
+    lel = await message_.reply("🔄 **Обробка**")
     try:
         conchat = await client.get_chat(message_.chat.id)
         conid = conchat.linked_chat.id
         conv = conchat.linked_chat
         chid = conid
     except:
-        await message_.reply("Is chat even linked")
+        await message_.reply("Чат привязаний")
         return
     try:
         administrators = await get_administrators(conv)
     except:
-        await message.reply("Am I admin of Channel")
+        await message.reply("Я адміністратор каналу")
     try:
         user = await USER.get_me()
     except:
@@ -640,20 +640,20 @@ async def jiosaavn(client: Client, message_: Message):
             if administrator == message_.from_user.id:
                 if message_.chat.title.startswith("Channel Music: "):
                     await lel.edit(
-                        "<b>Remember to add helper to your channel</b>",
+                        "<b>Не забудьте додати ассистента до свого каналу</b>",
                     )
                 try:
                     invitelink = await client.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        "<b>Add me as admin of yor group first</b>",
+                        "<b>Додайте мене до адміністраторів чату</b>",
                     )
                     return
 
                 try:
                     await USER.join_chat(invitelink)
                     await lel.edit(
-                        "<b>helper userbot joined your channel</b>",
+                        "<b>Ассистент бот приєднався до вашого чату</b>",
                     )
 
                 except UserAlreadyParticipant:
@@ -661,15 +661,15 @@ async def jiosaavn(client: Client, message_: Message):
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your channel due to heavy requests for userbot! Make sure user is not banned in group."
-                        "\n\nOr manually add @DaisyXmusic to your Group and try again</b>",
+                        f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} не вдалося приєднатися до вашої групи через багато спроб!Переконайтеся, що бот не заблокований у групі."
+                        "\n\вручну додайте ассистента до своєї групи та повторіть спробу</b>",
                     )
     try:
         await USER.get_chat(chid)
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i> helper Userbot not in this channel, Ask channel admin to send /play command for first time or add assistant manually</i>"
+            "<i> Бот не в цьому чаті. Попросіть адміністратора надіслати /play вперше або додайте {user.first_name} вручну</i>"
         )
         return
     requested_by = message_.from_user.first_name
@@ -677,7 +677,7 @@ async def jiosaavn(client: Client, message_: Message):
     text = message_.text.split(" ", 1)
     query = text[1]
     res = lel
-    await res.edit(f"Searching 🔎 for `{query}` on jio saavn")
+    await res.edit(f"Пошук 🔎 через `{query}` jio saavn")
     try:
         songs = await arq.saavn(query)
         if not songs.ok:
@@ -689,21 +689,21 @@ async def jiosaavn(client: Client, message_: Message):
         sthumb = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
         sduration = int(songs.result[0].duration)
     except Exception as e:
-        await res.edit("Found Literally Nothing!, You Should Work On Your English.")
+        await res.edit("Буквально нічого не знайшли! Вам слід попрацювати над своєю англійською мовою.")
         print(str(e))
         return
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
-                InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
+                InlineKeyboardButton("📖 Плейлист", callback_data="cplaylist"),
+                InlineKeyboardButton("Меню ⏯ ", callback_data="cmenu"),
             ],
             [
                 InlineKeyboardButton(
-                    text="Join Updates Channel", url=f"https://t.me/{updateschannel}"
+                    text="Приєднуйтесь до каналу оновлень", url=f"https://t.me/{updateschannel}"
                 )
             ],
-            [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+            [InlineKeyboardButton(text="❌ Закрити", callback_data="ccls")],
         ]
     )
     file_path = await convert(wget.download(slink))
@@ -721,11 +721,11 @@ async def jiosaavn(client: Client, message_: Message):
             chat_id=message_.chat.id,
             reply_markup=keyboard,
             photo="final.png",
-            caption=f"✯{bn}✯=#️⃣ Queued at position {position}",
+            caption=f"✯{bn}✯=#️⃣ У черзі на позицію {position}",
         )
 
     else:
-        await res.edit_text(f"{bn}=▶️ Playing.....")
+        await res.edit_text(f"{bn}=▶️ Відтвореня.....")
         que[chat_id] = []
         qeue = que.get(chat_id)
         s_name = sname
@@ -734,13 +734,13 @@ async def jiosaavn(client: Client, message_: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
     await callsmusic.set_stream(chat_id, file_path)
-    await res.edit("Generating Thumbnail.")
+    await res.edit("Створення ескізу.")
     await generate_cover(requested_by, sname, ssingers, sduration, sthumb)
     await res.delete()
     m = await client.send_photo(
         chat_id=message_.chat.id,
         reply_markup=keyboard,
         photo="final.png",
-        caption=f"Playing {sname} Via Jiosaavn in linked channel",
+        caption=f"Відтвореня {sname} через Jiosaavn in linked channel",
     )
     os.remove("final.png")
