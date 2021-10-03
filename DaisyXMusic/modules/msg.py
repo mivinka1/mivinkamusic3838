@@ -18,105 +18,101 @@ from DaisyXMusic.config import ASSISTANT_NAME, PROJECT_NAME
 
 
 class Messages:
-    START_MSG = "**Hello 👋 [{}](tg://user?id={})!**\n\n🤖 I am an advanced bot created for playing music in the voice chats of Telegram Groups & Channels.\n\n✅ Send me /help for more info."
+    START_MSG = "**Привіт 👋 [{}](tg://user?id={})!**\n\n🤖 Я бот, для відтворення музики в голосових чатах Telegram.\n\n✅ Надішли /help для більш детальної інформації."
     HELP_MSG = [
         ".",
         f"""
-**Hey 👋 Welcome back to {PROJECT_NAME}
+**Ей 👋 Ласкаво просимо назад {PROJECT_NAME}
 
-⚪️ {PROJECT_NAME} can play music in your group's voice chat as well as channel voice chats
+⚪️ {PROJECT_NAME} може відтворювати музику в голосовому чаті вашої групи, а також голосовому чаті каналу
 
-⚪️ Assistant name >> @{ASSISTANT_NAME}\n\nClick next for instructions**
+⚪️ Імя Ассистента >> @{ASSISTANT_NAME}\n\nНатисніть далі, щоб отримати інструкції**
 """,
         f"""
-**Setting up**
+**Налаштування**
 
-1) Make bot admin (Group and in channel if use cplay)
-2) Start a voice chat
-3) Try /play [song name] for the first time by an admin
-*) If userbot joined enjoy music, If not add @{ASSISTANT_NAME} to your group and retry
+1) Видайте боту адмінку
+2) Почніть голосовий чат
+3) Впишіть /play [назва пісні]
+*) Якщо бот приєднався то насолоджуйтеся музикою, Якщо не додати @{ASSISTANT_NAME} до вашого чату повторіть ще раз
 
-**For Channel Music Play**
-1) Make me admin of your channel 
-2) Send /userbotjoinchannel in linked group
-3) Now send commands in linked group
+**Для відтворення музики каналу**
+1) Видайте боту адмінку
+2) Надішліть /userbotjoinchannel  у зв'язаній групі
+3) Тепер надсилайте команди у зв'язаній групі
 """,
         f"""
-**Commands**
+**Команди**
 
 **=>> Song Playing 🎧**
 
-- /play: Play the requestd song
-- /play [yt url] : Play the given yt url
-- /play [reply yo audio]: Play replied audio
-- /splay: Play song via jio saavn
-- /ytplay: Directly play song via Youtube Music
+- /play: Відтворення медіа чату
+- /play [yt url] : Відтворення за ссилкою YouTube
+- /splay: Відтворення пісні через jio saavn
+- /ytplay: Відтворювати пісню через Youtube Music
 
-**=>> Playback ⏯**
+**=>> Відтворення ⏯**
 
-- /player: Open Settings menu of player
-- /skip: Skips the current track
-- /pause: Pause track
-- /resume: Resumes the paused track
-- /end: Stops media playback
-- /current: Shows the current Playing track
-- /playlist: Shows playlist
+- /player: Відкрити меню налаштувань програвача
+- /skip: Пропустити поточний трек
+- /pause: Призупинити трек
+- /resume: Відновлення призупиненого треку
+- /end: Припинення відтворення медіафайлів
+- /current: Показати поточний трек
+- /playlist: Показати плейлист
 
-*Player cmd and all other cmds except /play, /current  and /playlist  are only for admins of the group.
 """,
         f"""
-**=>> Channel Music Play 🛠**
+**=>> Відтворення музики каналу 🛠**
 
-⚪️ For linked group admins only:
+⚪️ Лише для адміністраторів зв'язаних груп:
 
-- /cplay [song name] - play song you requested
-- /csplay [song name] - play song you requested via jio saavn
-- /cplaylist - Show now playing list
-- /cccurrent - Show now playing
-- /cplayer - open music player settings panel
-- /cpause - pause song play
-- /cresume - resume song play
-- /cskip - play next song
-- /cend - stop music play
-- /userbotjoinchannel - invite assistant to your chat
+- /cplay [назва пісні] - Відтворення
+- /csplay [назва пісні] - Відтворення через jio saavn
+- /cplaylist - Показати список відтворення
+- /cccurrent - Показати що зараз відтворюється
+- /cplayer - відкрити панель налаштувань музичного програвача
+- /cpause - призупинити відтворення пісні
+- /cresume - відновити відтворення пісні
+- /cskip - відтворити наступну пісню
+- /cend - зупинити відтворення музики
+- /userbotjoinchannel - Добавити ассистента у ваш чат
 
-channel is also can be used instead of c ( /cplay = /channelplay )
+⚪️ Якщо ви не любите слухати у пов'язаній групі:
 
-⚪️ If you donlt like to play in linked group:
-
-1) Get your channel ID.
-2) Create a group with tittle: Channel Music: your_channel_id
-3) Add bot as Channel admin with full perms
-4) Add @{ASSISTANT_NAME} to the channel as an admin.
-5) Simply send commands in your group. (remember to use /ytplay instead /play)
+1) Отримайте ID каналу.
+2) Створіть групу з титлою: Музика каналу: your_channel_id
+3) Добавте бота як адміністратора з усіма правами
+4) Добавте @{ASSISTANT_NAME} каналу як адміністратору.
+5) Просто надсилайте команди у своїй групі. (не забувайте використовувати /ytplay instead /play)
 """,
         f"""
-**=>> More tools 🧑‍🔧**
+**=>> Більше налаштуваннь 🧑‍🔧**
 
-- /musicplayer [on/off]: Enable/Disable Music player
-- /admincache: Updates admin info of your group. Try if bot isn't recognize admin
-- /userbotjoin: Invite @{ASSISTANT_NAME} Userbot to your chat
+- /musicplayer [on/off]: Увімкнення або вимкнення музичного програвача
+- /admincache: Оновлення адмінів у вашому чаті, якщо бот не розпізнає адміністратора
+- /userbotjoin: Запросити @{ASSISTANT_NAME} бота до вашого чату
 """,
         f"""
-**=>> Song Download 🎸**
+**=>> Завантаження пісні 🎸**
 
-- /video [song mame]: Download video song from youtube
-- /song [song name]: Download audio song from youtube
-- /saavn [song name]: Download song from saavn
-- /deezer [song name]: Download song from deezer
+- /video [назва пісні]: Завантажити відео пісню з YouTube
+- /song [назва пісні]:  Завантажити аудіо пісню з YouTube
+- /saavn [назва пісні]: Завантажити пісню з saavn
+- /deezer [назва пісні]: Завантажити пісню з deezer
 
-**=>> Search Tools 📄**
+**=>> Засоби пошуку 📄**
 
-- /search [song name]: Search youtube for songs
-- /lyrics [song name]: Get song lyrics
+- /search [назва пісні]: Пошук пісень на YouTube
+- /lyrics [назва пісні]: Отримати текст пісні
 """,
         f"""
-**=>> Commands for Sudo Users ⚔️**
+**=>> Команди для користувачів Sudo ⚔️**
 
- - /userbotleaveall - remove assistant from all chats
- - /broadcast <reply to message> - globally brodcast replied message to all chats
- - /pmpermit [on/off] - enable/disable pmpermit message
-*Sudo Users can execute any command in any groups
+ - /userbotleaveall - видалити помічника з усіх чатів
+ - /broadcast <реплей> - глобально трансльоване повідомлення усім чатам
+ - /pmpermit [on/off] - увімкнути/вимкнути повідомлення у приватні повідомлення
+*Користувачі Sudo можуть виконувати будь-яку команду в будь-яких групах
 
 """,
     ]
