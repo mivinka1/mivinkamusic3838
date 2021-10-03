@@ -146,7 +146,7 @@ async def playlist(client, message):
     by = temp[0][1].mention(style="md")
     msg = "**Зараз відтворюється** in {}".format(message.chat.title)
     msg += "\n- " + now_playing
-    msg += "\n- Req by " + by
+    msg += "\n- Відтворив " + by
     temp.pop(0)
     if temp:
         msg += "\n\n"
@@ -155,7 +155,7 @@ async def playlist(client, message):
             name = song[0]
             usr = song[1].mention(style="md")
             msg += f"\n- {name}"
-            msg += f"\n- Req by {usr}\n"
+            msg += f"\n- Відтворив {usr}\n"
     await message.reply_text(msg)
 
 
@@ -286,7 +286,7 @@ async def p_cb(b, cb):
     if type_ == "playlist":
         queue = que.get(cb.message.chat.id)
         if not queue:
-            await cb.message.edit("Player is idle")
+            await cb.message.edit("Плеєр на працює")
         temp = []
         for t in queue:
             temp.append(t)
